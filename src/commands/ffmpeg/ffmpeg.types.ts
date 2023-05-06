@@ -2,7 +2,7 @@ import { ICommandExec } from '../../core/executor/command.types';
 
 export interface IFfmpegInput {
 	width: number;
-	height: number;
+	crf: number;
 	path: string;
 	name: string;
 }
