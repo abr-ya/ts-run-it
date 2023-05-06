@@ -5,17 +5,24 @@ export class FfmpegBuilder {
   constructor() {
     this.options.set('-c:v', 'libx264');
     this.options.set('-c:a', 'copy');
-    this.options.set('-crf', '20');
     this.options.set('-preset', 'fast');
   }
 
   input(inputPath: string): this {
     this.inputPath = inputPath;
+
     return this;
   }
 
   scaleTo(width: number): this {
     this.options.set('-vf', `scale=${width}:-1`);
+
+    return this;
+  }
+
+  setCrf(crf: number): this {
+    this.options.set('-crf', crf.toString());
+
     return this;
   }
 
@@ -27,6 +34,7 @@ export class FfmpegBuilder {
     args.push(outputPath);
 
     console.log('generate args:', args);
+
     return args;
   }
 }

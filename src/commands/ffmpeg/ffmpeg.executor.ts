@@ -29,14 +29,15 @@ export class FfmpegExecutor extends CommandExecutor<IFfmpegInput> {
 		const args = (new FfmpegBuilder)
 			.input(path)
 			.scaleTo(width)
+      .setCrf(crf)
 			.output(output);
-    console.log('use args:', args);
 
 		return { command: 'ffmpeg', args, output };
 	}
 
 	protected spawn({ output, command, args }: ICommandExecFfmpeg): ChildProcessWithoutNullStreams {
 		this.fileService.deleteFileIfExists(output);
+    console.log('run', command, 'with args:', args.join(' '));
 
 		return spawn(command, args);
 	}
